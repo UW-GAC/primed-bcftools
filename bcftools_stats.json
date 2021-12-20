@@ -1,3 +1,4 @@
 {
-    "bcftools_stats.vcf_file": "1KG_phase3_subset_chr1.vcf.gz"
+    "bcftools_stats.vcf_file": "1KG_phase3_subset_chr1.vcf.gz",
+    "bcftools.stats.sample_list": "this.samples"
 }
