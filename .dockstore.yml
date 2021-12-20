@@ -1,0 +1,7 @@
+version: 1.2
+workflows:
+   - name: bcftools_stats
+     subclass: WDL
+     primaryDescriptorPath: /bcftools_stats.wdl
+     testParameterFiles:
+         - /bcftools_stats.json
