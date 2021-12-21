@@ -28,11 +28,11 @@ task results {
     }
 
     command {
-        echo ${sep=' ' sample_list} > file.txt
+        bcftools stats --samples ${sep=',' sample_list} ${vcf_file} > stats.txt
     }
 
     output {
-        File output_file = "file.txt"
+        File output_file = "stats.txt"
     }
 
     runtime {
