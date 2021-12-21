@@ -3,7 +3,7 @@ version 1.0
 workflow bcftools_stats {
     input {
         File vcf_file
-        Array[File] sample_list
+        Array[String] sample_list
     }
 
     call results {
@@ -24,11 +24,11 @@ workflow bcftools_stats {
 task results {
     input {
         File vcf_file
-        Array[File] sample_list
+        Array[String] sample_list
     }
 
     command {
-        cat sample_list > file.txt
+        echo ${sep=' ' sample_list} > file.txt
     }
 
     output {
