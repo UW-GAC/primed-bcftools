@@ -3,20 +3,18 @@ version 1.0
 workflow check_vcf_samples {
     input {
         File vcf_file
-        Array[String] sample_list
     }
 
     call vcf_samples {
         input: vcf_file = vcf_file
     }
 
-    call compare_string_sets {
-        input: string_array = sample_list,
-               string_file = vcf_samples.sample_file
+    call compare_sample_sets {
+        input: sample_file = vcf_samples.sample_file
     }
 
     output {
-        String check_status = compare_string_sets.check_status
+        String check_status = compare_sample_sets.check_status
     }
 
      meta {
@@ -43,15 +41,14 @@ task vcf_samples {
     }
 }
 
-task compare_string_sets {
+task compare_sample_sets {
     input {
-        Array[String] string_array
-        File string_file
+        File sample_file
     }
 
     command {
-        echo ${sep='\n' string_array} > string_list.txt
-        Rscript -e "a <- readLines('string_list.txt'); b <- readLines('${string_file}'); if (setequal(a,b)) message('PASS') else message('FAIL')" > status.txt
+        cp ${sample_file} samples.txt
+        Rscript -e "a <- readLines('samples.txt'); b <- AnVIL::avtable("sample")$sample_id; if (setequal(a,b)) message('PASS') else message('FAIL')" > status.txt
     }
 
     output {
@@ -59,6 +56,6 @@ task compare_string_sets {
     }
 
     runtime {
-        docker: "rocker/r-ver:4.1.2"
+        docker: "us.gcr.io/anvil-gcr-public/anvil-rstudio-bioconductor:3.14.0"
     }
 }
