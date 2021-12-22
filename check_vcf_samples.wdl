@@ -48,7 +48,7 @@ task compare_sample_sets {
 
     command {
         cp ${sample_file} samples.txt
-        Rscript -e "a <- readLines('samples.txt'); b <- AnVIL::avtable("sample")$sample_id; if (setequal(a,b)) message('PASS') else message('FAIL')" > status.txt
+        Rscript -e "a <- readLines('samples.txt'); b <- AnVIL::avtable('sample')$sample_id; if (setequal(a,b)) message('PASS') else message('FAIL')" > status.txt
     }
 
     output {
