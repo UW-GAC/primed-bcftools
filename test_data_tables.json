@@ -1,0 +1,4 @@
+{
+    "test_data_tables.sample_list": "${this.samples.sample_id}",
+    "test_data_tables.pop_list": "${this.samples.population}"
+}

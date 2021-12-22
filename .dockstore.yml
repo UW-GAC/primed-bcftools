@@ -10,3 +10,8 @@ workflows:
      primaryDescriptorPath: /check_vcf_samples.wdl
      testParameterFiles:
          - /check_vcf_samples.json
+   - name: test_data_tables
+     subclass: WDL
+     primaryDescriptorPath: /test_data_tables.wdl
+     testParameterFiles:
+         - /test_data_tables.json
