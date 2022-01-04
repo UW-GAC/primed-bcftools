@@ -3,12 +3,12 @@ version 1.0
 workflow test_data_tables {
     input {
         Array[String] sample_list
-        Array[String] pop_list
+        String subject_column
     }
 
     call results {
         input: sample_list = sample_list,
-               pop_list = pop_list
+               subject_column = subject_column    
     }
 
     output {
@@ -24,12 +24,11 @@ workflow test_data_tables {
 task results {
     input {
         Array[String] sample_list
-        Array[String] pop_list
+        String subject_column
     }
 
     command {
-        echo ${sep=' ' sample_list} > output.txt
-        echo ${sep=' ' pop_list} >> output.txt
+        Rscript -e "message(AnVIL::avworkspace())" > output.txt
     }
 
     output {
