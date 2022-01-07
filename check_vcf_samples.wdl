@@ -50,8 +50,8 @@ task compare_string_sets {
     }
 
     command {
-        echo ${sep='\n' string_array} > string_list.txt
-        Rscript -e "a <- readLines('string_list.txt'); b <- readLines('${string_file}'); if (setequal(a,b)) message('PASS') else message('FAIL')" > status.txt
+        echo ${sep=' ' string_array} > string_list.txt
+        Rscript -e "a <- scan('string_list.txt',  what=character(), quiet=TRUE); b <- readLines('${string_file}'); if (setequal(a,b)) status <- 'PASS' else status <- 'FAIL'; cat(status, file='status.txt')"
     }
 
     output {
