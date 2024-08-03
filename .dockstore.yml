@@ -5,13 +5,6 @@ workflows:
      primaryDescriptorPath: /bcftools_stats.wdl
      testParameterFiles:
          - /bcftools_stats.json
-   - name: check_vcf_samples
+   - name: extract_vcf_ids
      subclass: WDL
-     primaryDescriptorPath: /check_vcf_samples.wdl
-     testParameterFiles:
-         - /check_vcf_samples.json
-   - name: test_data_tables
-     subclass: WDL
-     primaryDescriptorPath: /test_data_tables.wdl
-     testParameterFiles:
-         - /test_data_tables.json
+     primaryDescriptorPath: /extract_vcf_ids.wdl
