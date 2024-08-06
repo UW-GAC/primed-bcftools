@@ -31,6 +31,8 @@ task bcftools_query {
         File vcf_file
     }
 
+    Int disk_gb = ceil(size(vcf_file, "GB")*1.5) + 5
+
     command <<<
         bcftools query -f '%CHROM:%POS:%REF:%ALT\n' ~{vcf_file} > variants.txt
     >>>
@@ -41,6 +43,7 @@ task bcftools_query {
 
     runtime {
         docker: "staphb/bcftools:1.16"
+        disks: "local-disk ${disk_gb} SSD"
     }
 }
 
