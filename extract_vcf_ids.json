@@ -1,3 +1,4 @@
 {
+  "extract_vcf_ids.pass_only": true,
   "extract_vcf_ids.vcf_file": ["tmp/AMR_subset1000_chr22.vcf.gz"]
 }
