@@ -3,11 +3,14 @@ version 1.0
 workflow extract_vcf_ids {
     input {
         Array[File] vcf_file
+        Boolean pass_only = false
     }
 
     scatter (f in vcf_file) {
         call bcftools_query {
-            input: vcf_file = f
+            input:
+                vcf_file = f,
+                pass_only = pass_only
         }
     }
 
@@ -29,12 +32,19 @@ workflow extract_vcf_ids {
 task bcftools_query {
     input {
         File vcf_file
+        Boolean pass_only
     }
 
     Int disk_gb = ceil(size(vcf_file, "GB")*1.5) + 5
 
     command <<<
-        bcftools query -f '%CHROM:%POS:%REF:%ALT\n' ~{vcf_file} > variants.txt
+        set -e -o pipefail
+
+        bcftools query \
+            ~{if pass_only then "-i 'FILTER=\"PASS\"'" else ""} \
+            -f '%CHROM:%POS:%REF:%ALT\n' \
+            ~{vcf_file} \
+            > variants.txt
     >>>
 
     output {

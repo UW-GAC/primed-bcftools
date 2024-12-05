@@ -27,6 +27,7 @@ jobs:
       matrix:
         wdl-file: [
           ./bcftools_stats.wdl,
+          ./extract_vcf_ids.wdl,
           ./test_data_tables.wdl,
           ./check_vcf_samples.wdl
         ]
