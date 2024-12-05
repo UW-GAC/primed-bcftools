@@ -34,6 +34,8 @@ task bcftools_query {
     Int disk_gb = ceil(size(vcf_file, "GB")*1.5) + 5
 
     command <<<
+        set -e -o pipefail
+
         bcftools query \
             -f '%CHROM:%POS:%REF:%ALT\n' \
             ~{vcf_file} \
