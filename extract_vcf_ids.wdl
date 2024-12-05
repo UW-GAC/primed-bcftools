@@ -34,7 +34,10 @@ task bcftools_query {
     Int disk_gb = ceil(size(vcf_file, "GB")*1.5) + 5
 
     command <<<
-        bcftools query -f '%CHROM:%POS:%REF:%ALT\n' ~{vcf_file} > variants.txt
+        bcftools query \
+            -f '%CHROM:%POS:%REF:%ALT\n' \
+            ~{vcf_file} \
+            > variants.txt
     >>>
 
     output {
