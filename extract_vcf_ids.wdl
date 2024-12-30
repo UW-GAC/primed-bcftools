@@ -35,7 +35,7 @@ task bcftools_query {
         Boolean pass_only
     }
 
-    Int disk_gb = ceil(size(vcf_file, "GB")*1.5) + 5
+    Int disk_gb = ceil(size(vcf_file, "GB")*2) + 10
 
     command <<<
         set -e -o pipefail
