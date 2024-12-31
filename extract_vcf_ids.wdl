@@ -35,7 +35,7 @@ task bcftools_query {
         Boolean pass_only
     }
 
-    Int disk_gb = ceil(size(vcf_file, "GB")*2) + 10
+    Int disk_gb = ceil(size(vcf_file, "GB")*1.5) + 5
 
     command <<<
         set -e -o pipefail
@@ -63,6 +63,8 @@ task concat_files {
         Array[File] files
     }
 
+    Int disk_gb = ceil(size(files, "GB")*2.5) + 5
+
     command <<<
         cat ~{sep=' ' files} > concat.txt
     >>>
@@ -73,5 +75,6 @@ task concat_files {
 
     runtime {
         docker: "staphb/bcftools:1.16"
+        disks: "local-disk ${disk_gb} SSD"
     }
 }
