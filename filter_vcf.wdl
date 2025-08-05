@@ -33,6 +33,8 @@ task filter {
         String suffix
     }
 
+    Int disk_gb = ceil(size(vcf_file, "GB")*2) + 10
+
     String out_file = basename(vcf_file, ".vcf.gz") + "_" + suffix + ".vcf.gz"
 
     command <<<
@@ -45,5 +47,6 @@ task filter {
 
     runtime {
         docker: "biocontainers/bcftools:v1.9-1-deb_cv1"
+        disks: "local-disk ${disk_gb} SSD"
     }
 }
