@@ -8,3 +8,6 @@ workflows:
    - name: extract_vcf_ids
      subclass: WDL
      primaryDescriptorPath: /extract_vcf_ids.wdl
+   - name: filter_vcf
+     subclass: WDL
+     primaryDescriptorPath: /filter_vcf.wdl
