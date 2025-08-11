@@ -2,21 +2,23 @@ version 1.0
 
 workflow filter_vcf {
     input {
-        File vcf_file
+        Array[File] vcf_file
         String filter_column = "INFO/DR2"
         String filter_threshold = "0.3"
         String suffix = "filtered"
     }
 
-    call filter {
-        input: vcf_file = vcf_file,
-        filter_column = filter_column,
-        filter_threshold = filter_threshold,
-        suffix = suffix
+    scatter (f in vcf_file) {
+        call filter {
+            input: vcf_file = f,
+            filter_column = filter_column,
+            filter_threshold = filter_threshold,
+            suffix = suffix
+        }
     }
 
     output {
-        File output_file = filter.output_file
+        Array[File] output_file = filter.output_file
     }
 
      meta {
